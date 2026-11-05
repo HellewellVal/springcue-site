@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're on the list | SpringCue</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231E2B2F'/%3E%3Cpath d='M5.5 19c2.3 0 2.3-6 4.6-6s2.3 6 4.6 6 2.3-6 4.6-6' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='25' cy='13' r='3.1' fill='%23E3AE24'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #1E2B2F; --ink-soft: #4A585C; --paper: #F2F4F2; --plaster: #E3E8E5; --line: #C3CCC7; --white: #FFFFFF; --yellow: #E3AE24; --blue: #2E6BD1; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: var(--paper); color: var(--ink); font-family: "Spline Sans", system-ui, sans-serif; font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  header, main { width: 100%; max-width: 44rem; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+  header { padding-block: 1.25rem; }
+  .logo { font-weight: 600; font-size: 1.25rem; letter-spacing: -0.03em; text-decoration: none; display: inline-flex; align-items: center; gap: 0.55rem; }
+  .logo b { font-weight: 600; color: var(--ink-soft); }
+  main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: 3rem 5rem; }
+  .coil { width: 9rem; margin-bottom: 2rem; }
+  .coil path { stroke-dasharray: 260; stroke-dashoffset: 260; animation: draw 1.4s cubic-bezier(.2,.75,.2,1) 0.2s forwards; }
+  .coil circle { transform-origin: 222px 18px; transform: scale(0); animation: pop 0.5s cubic-bezier(.3,1.6,.5,1) 1.3s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes pop { to { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .coil path { stroke-dashoffset: 0; animation: none; } .coil circle { transform: none; animation: none; } }
+  h1 { font-weight: 500; letter-spacing: -0.035em; line-height: 1.08; font-size: clamp(2.3rem, 7vw, 3.6rem); margin: 0; text-wrap: balance; }
+  p { margin: 1.25rem 0 0; color: var(--ink-soft); max-width: 34rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .btn { display: inline-block; text-decoration: none; font-weight: 500; padding: 0.85rem 1.35rem; border-radius: 10px; border: 1.5px solid var(--ink); }
+  .btn-solid { background: var(--ink); color: var(--white); }
+  .btn-line:hover { background: var(--plaster); }
+</style>
+</head>
+<body>
+<header><a class="logo" href="/" aria-label="SpringCue home"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#1E2B2F"/><path d="M5.5 19c2.3 0 2.3-6 4.6-6s2.3 6 4.6 6 2.3-6 4.6-6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="13" r="3.1" fill="#E3AE24"/></svg><span>Spring<b>Cue</b></span></a></header>
+<main>
+<svg class="coil" viewBox="0 0 260 80" aria-hidden="true"><path d="M8 52c16 0 16-34 32-34s16 34 32 34 16-34 32-34 16 34 32 34 16-34 32-34" fill="none" stroke="#1E2B2F" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="222" cy="18" r="13" fill="#E3AE24"/></svg>
+<h1>You're on the list.</h1>
+<p>Thanks for joining the SpringCue waitlist. A real person will reply within 2 working days, from hello@springcue.com. Check your spam folder if you don't see it.</p>
+<p>Opening a new studio? Reply with your opening date and we'll plan your setup around it.</p>
+<div class="actions"><a class="btn btn-solid" href="/">Back to SpringCue</a><a class="btn btn-line" href="https://www.instagram.com/springcuesoftware/" rel="noopener">Follow on Instagram</a></div>
+</main>
+</body>
+</html>

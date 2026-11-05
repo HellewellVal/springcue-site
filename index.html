@@ -2,12 +2,20 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SpringCue: booking software for UK reformer Pilates studios</title>
 <meta name="description" content="Booking and membership software for independent UK reformer studios, built around your instructors. Cover that works, new teachers who get booked, and every client's needs known before class.">
 <meta property="og:title" content="SpringCue: booking software for UK reformer studios">
 <meta property="og:description" content="Cover that works, new teachers who get booked, and every client's needs known before class. Flat price, real human support.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://springcue.com/">
+<meta property="og:image" content="https://springcue.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://springcue.com/">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"SpringCue","url":"https://springcue.com/","logo":"https://springcue.com/og-image.png","email":"hello@springcue.com","sameAs":["https://www.instagram.com/springcuesoftware/"]},{"@type":"SoftwareApplication","name":"SpringCue","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Booking and membership software for independent UK reformer pilates studios, built around instructors.","offers":[{"@type":"Offer","name":"Launch","price":"0","priceCurrency":"GBP"},{"@type":"Offer","name":"Studio","price":"79","priceCurrency":"GBP"},{"@type":"Offer","name":"Studio+","price":"119","priceCurrency":"GBP"}]}]}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231E2B2F'/%3E%3Cpath d='M5.5 19c2.3 0 2.3-6 4.6-6s2.3 6 4.6 6 2.3-6 4.6-6' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='25' cy='13' r='3.1' fill='%23E3AE24'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +56,7 @@
   /* buttons */
   .btn {
     display: inline-block; text-decoration: none; font-weight: 500; font-size: 1rem;
-    padding: 0.85rem 1.35rem; border-radius: 999px; border: 1.5px solid var(--ink);
+    padding: 0.85rem 1.35rem; border-radius: 10px; border: 1.5px solid var(--ink);
     cursor: pointer; font-family: inherit; line-height: 1.2;
   }
   .btn-solid { background: var(--ink); color: var(--white); }
@@ -196,12 +204,15 @@
   .join .wrap { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .join h2 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
   .join p { margin-top: 1rem; color: #C9D4D6; max-width: 26rem; }
+  .join .promise-line { color: var(--white); font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; }
+  .join .promise-line::before { content: ""; flex: none; width: 0.6rem; height: 0.6rem; margin-top: 0.5em; border-radius: 50%; background: var(--yellow); }
   .form-box { background: var(--white); color: var(--ink); border-radius: 1.25rem; padding: clamp(1.25rem, 3vw, 2rem); min-height: 20rem; }
   .form-box iframe { width: 100%; border: 0; min-height: 520px; }
   .form-placeholder { display: grid; gap: 0.75rem; font-size: 0.95rem; color: var(--ink-soft); }
   .form-placeholder strong { color: var(--ink); }
   .form-placeholder code { background: var(--plaster); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.88rem; }
   @media (max-width: 860px) { .join .wrap { grid-template-columns: 1fr; } }
+
 
   /* footer */
   footer { padding: 2.5rem 0 3rem; font-size: 0.92rem; color: var(--ink-soft); }
@@ -546,6 +557,7 @@
       <div>
         <h2 id="join-title">Join the waitlist</h2>
         <p>Founding studios get early access, 3 months free and a locked-in price. It takes about a minute.</p>
+        <p class="promise-line">A real person replies within 2 working days, from hello@springcue.com.</p>
       </div>
       <div class="form-box" id="form-box">
         <!-- The Tally form loads here once TALLY_FORM_ID is set below. -->
@@ -559,11 +571,13 @@
   </section>
 </main>
 
+
 <footer>
   <div class="wrap">
     <span>SpringCue, booking software for UK reformer studios. © 2026</span>
     <nav aria-label="Footer">
       <a href="privacy.html">Privacy notice</a>
+      <a href="terms.html">Terms</a>
       <a href="mailto:hello@springcue.com">Contact</a>
     </nav>
   </div>
@@ -649,16 +663,12 @@
     }
   }
 
-  // Hero card leans gently towards the pointer.
-  const stage = document.querySelector(".stage"), tilt = document.querySelector(".tilt");
-  if (stage && tilt && !calm && matchMedia("(pointer: fine)").matches) {
-    stage.addEventListener("pointermove", e => {
-      const b = stage.getBoundingClientRect();
-      tilt.style.setProperty("--ry", ((e.clientX - b.left) / b.width - 0.5) * 8 + "deg");
-      tilt.style.setProperty("--rx", -((e.clientY - b.top) / b.height - 0.5) * 6 + "deg");
-    });
-    stage.addEventListener("pointerleave", () => { tilt.style.setProperty("--ry", "0deg"); tilt.style.setProperty("--rx", "0deg"); });
-  }
+  // After a waitlist sign-up, go to the thank-you page.
+  addEventListener("message", e => {
+    if (!/tally\.so$/.test(new URL(e.origin).hostname)) return;
+    const d = typeof e.data === "string" ? e.data : JSON.stringify(e.data || "");
+    if (d.includes("Tally.FormSubmitted")) location.href = "thanks.html";
+  });
 
   // Hairline under the nav once the page scrolls.
   const nav = document.querySelector(".nav");
