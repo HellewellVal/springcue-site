@@ -8,6 +8,7 @@
 <meta property="og:title" content="SpringCue: booking software for UK reformer studios">
 <meta property="og:description" content="Cover that works, new teachers who get booked, and every client's needs known before class. Flat price, real human support.">
 <meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231E2B2F'/%3E%3Cpath d='M5.5 19c2.3 0 2.3-6 4.6-6s2.3 6 4.6 6 2.3-6 4.6-6' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='25' cy='13' r='3.1' fill='%23E3AE24'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -60,8 +61,10 @@
   .nav.scrolled { border-bottom-color: var(--line); }
   .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 4rem; gap: 1rem; }
   .logo { font-weight: 600; font-size: 1.25rem; letter-spacing: -0.03em; text-decoration: none; display: flex; align-items: center; gap: 0.55rem; }
-  .logo-mark { width: 1.6rem; height: 0.9rem; border: 2px solid var(--ink); border-radius: 0.45rem; position: relative; }
-  .logo-mark::after { content: ""; position: absolute; left: 3px; top: 2px; width: 0.55rem; height: calc(100% - 4px); background: var(--ink); border-radius: 0.2rem; }
+  .logo-mark { width: 1.9rem; height: 1.9rem; flex: none; display: block; }
+  .logo-mark .coil { transform-origin: 6px 16px; transition: transform 0.45s cubic-bezier(.3,1.6,.5,1); }
+  .logo:hover .logo-mark .coil { transform: scaleX(0.82); }
+  .logo-word b { font-weight: 600; color: var(--ink-soft); }
   .nav-links { display: flex; gap: 1.6rem; align-items: center; font-size: 0.95rem; }
   .nav-links a:not(.btn) { text-decoration: none; color: var(--ink-soft); }
   .nav-links a:not(.btn):hover { color: var(--ink); }
@@ -98,7 +101,7 @@
   .spr.r { background: var(--red); } .spr.b { background: var(--blue); } .spr.y { background: var(--yellow); }
   .brief-foot { margin-top: 0.9rem; border-top: 1px solid var(--plaster); padding: 0.85rem 0.35rem 0.1rem; display: flex; gap: 0.6rem; align-items: center; font-size: 0.88rem; }
   .tick { width: 1.15rem; height: 1.15rem; border-radius: 50%; background: var(--ink); color: var(--white); display: grid; place-items: center; font-size: 0.7rem; flex: none; }
-  .example { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.75rem; text-align: right; }
+  .example { font-size: 0.8rem; color: var(--ink-soft); margin-top: 3rem; text-align: right; position: relative; }
   @media (max-width: 520px) { .beds { grid-template-columns: repeat(2, 1fr); } }
 
   /* sections */
@@ -186,7 +189,10 @@
   @media (max-width: 760px) { .faq { grid-template-columns: 1fr; } }
 
   /* waitlist */
-  .join { background: var(--ink); color: var(--white); }
+  .join { background: var(--ink); color: var(--white); position: relative; overflow: hidden; }
+  .join::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.09) 1.2px, transparent 1.4px); background-size: 18px 18px; -webkit-mask-image: linear-gradient(115deg, #000 0%, transparent 45%); mask-image: linear-gradient(115deg, #000 0%, transparent 45%); pointer-events: none; }
+  .join .wrap { position: relative; }
+  .join-coil { position: absolute; right: -2rem; bottom: -1rem; width: 26rem; max-width: 70%; opacity: 0.07; pointer-events: none; }
   .join .wrap { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .join h2 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
   .join p { margin-top: 1rem; color: #C9D4D6; max-width: 26rem; }
@@ -202,6 +208,69 @@
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
   footer nav { display: flex; gap: 1.5rem; }
 
+
+  /* feature tabs: one opens at a time, a progress line moves them on */
+  .tabs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .tab-item { border-top: 1px solid var(--line); position: relative; }
+  .tab-item:last-child { border-bottom: 1px solid var(--line); }
+  .tab-btn { all: unset; box-sizing: border-box; display: block; width: 100%; cursor: pointer; padding: 1.3rem 0; }
+  .tab-btn:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 6px; }
+  .tab-btn h3 { font-size: clamp(1.35rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; color: var(--ink-soft); transition: color 0.3s ease; }
+  .tab-item.is-active .tab-btn h3, .tab-btn:hover h3 { color: var(--ink); }
+  .tab-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s cubic-bezier(.2,.75,.2,1); }
+  .tab-body > div { overflow: hidden; }
+  .tab-item.is-active .tab-body { grid-template-rows: 1fr; }
+  .tab-body .lede { color: var(--ink-soft); max-width: 32rem; }
+  .tab-body .points { margin: 1rem 0 1.5rem; }
+  .tab-bar { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; overflow: hidden; }
+  .tab-bar span { display: block; height: 100%; width: 0; background: var(--ink); }
+  .tab-item.is-active .tab-bar span { width: 100%; }
+  .tabs.auto .tab-item.is-active .tab-bar span { width: 0; animation: fill 9s linear forwards; }
+  .tabs.paused .tab-bar span { animation-play-state: paused !important; }
+  @keyframes fill { to { width: 100%; } }
+  .tab-visual { display: grid; perspective: 1400px; }
+  .panel { grid-area: 1 / 1; transition: opacity 0.45s ease, transform 0.6s cubic-bezier(.2,.75,.2,1), visibility 0s linear 0.45s; opacity: 0; visibility: hidden; transform: translateY(14px) rotateY(-6deg); }
+  .panel.is-active { opacity: 1; visibility: visible; transform: rotateY(-6deg) rotateX(2deg); transition-delay: 0s; }
+  .panel .mock { box-shadow: 14px 14px 0 var(--plaster), 0 30px 50px -30px rgba(30,43,47,0.35); }
+  @media (max-width: 860px) { .tabs { grid-template-columns: 1fr; } .panel, .panel.is-active { transform: none; } .panel .mock { box-shadow: 8px 8px 0 var(--plaster); } }
+
+  /* cover request plays out: asking, skipped, accepted */
+  .queue li { transition: opacity 0.3s ease; }
+  .queue.playing li { opacity: 0.35; }
+  .queue.playing li.asking, .queue.playing li.done { opacity: 1; }
+  .queue li.asking .status { background: var(--yellow); color: var(--ink); border-color: var(--yellow); animation: pulse 0.9s ease-in-out infinite; }
+  @keyframes pulse { 50% { transform: scale(1.06); } }
+  .mock-foot { transition: opacity 0.4s ease, transform 0.4s ease; }
+  .playing ~ .mock-foot { opacity: 0; transform: translateY(4px); }
+  .playing.finished ~ .mock-foot { opacity: 1; transform: none; }
+  .spr.grow { animation: grow 0.7s cubic-bezier(.3,1.5,.5,1) both; }
+  .spr.grow + .spr.grow { animation-delay: 0.15s; }
+  @keyframes grow { from { width: 0; } }
+
+  /* hero stage: the briefing card tilted in 3D, with two cards stacked behind it */
+  .hero { overflow-x: clip; }
+  .stage { position: relative; perspective: 1600px; padding: 1.5rem 2.75rem 1.5rem 0.5rem; }
+  .arrive { animation: arrive 1.1s cubic-bezier(.2,.75,.2,1) both; }
+  @keyframes arrive { from { opacity: 0; transform: translateY(28px) rotateX(10deg); } to { opacity: 1; transform: none; } }
+  .float { animation: float 7s ease-in-out 1.1s infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .tilt {
+    --rx: 0deg; --ry: 0deg;
+    position: relative; transform-style: preserve-3d;
+    transform: rotateY(calc(-11deg + var(--ry))) rotateX(calc(5deg + var(--rx)));
+    transition: transform 0.6s cubic-bezier(.2,.75,.2,1);
+  }
+  .tilt::before, .tilt::after { content: ""; position: absolute; inset: 0; border-radius: 1.25rem; border: 1px solid var(--line); }
+  .tilt::before { background: var(--plaster); transform: translate3d(18px, 16px, -40px); }
+  .tilt::after { background: var(--line); opacity: 0.55; transform: translate3d(36px, 32px, -80px); }
+  .tilt .brief { position: relative; transform: translateZ(0); }
+  .drift { position: absolute; width: 2.1rem; height: 0.55rem; border-radius: 999px; z-index: 0; animation: drift 9s ease-in-out infinite; }
+  .drift.d1 { background: var(--red); top: 0.2rem; left: 12%; }
+  .drift.d2 { background: var(--blue); top: 42%; right: 0; animation-delay: -3s; }
+  .drift.d3 { background: var(--yellow); bottom: 0.4rem; left: 38%; animation-delay: -6s; }
+  @keyframes drift { 0%, 100% { transform: translate(0, 0) rotate(-8deg); } 50% { transform: translate(6px, -10px) rotate(6deg); } }
+  @media (max-width: 900px) { .stage { padding: 1.25rem 1.75rem 1.25rem 0.25rem; } .tilt { transform: rotateY(-6deg) rotateX(3deg); } .tilt::before { transform: translate3d(10px, 10px, -30px); } .tilt::after { transform: translate3d(20px, 20px, -60px); } }
+
   /* the one orchestrated moment: briefing beds settle in on load */
   @keyframes settle { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
   .beds .bed { animation: settle 0.5s ease both; }
@@ -214,7 +283,7 @@
 
 <header class="nav" id="top">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="SpringCue home"><span class="logo-mark" aria-hidden="true"></span>SpringCue</a>
+    <a class="logo" href="#top" aria-label="SpringCue home"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--ink)"/><path class="coil" d="M5.5 19c2.3 0 2.3-6 4.6-6s2.3 6 4.6 6 2.3-6 4.6-6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="13" r="3.1" fill="var(--yellow)"/></svg><span class="logo-word">Spring<b>Cue</b></span></a>
     <nav class="nav-links" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
@@ -237,7 +306,9 @@
         <p class="hero-note">Opening a new studio? Founding studios get early access and their first 3 months free.</p>
       </div>
 
-      <figure style="margin:0">
+      <figure class="stage" style="margin:0">
+        <span class="drift d1" aria-hidden="true"></span><span class="drift d2" aria-hidden="true"></span><span class="drift d3" aria-hidden="true"></span>
+        <div class="arrive"><div class="float"><div class="tilt">
         <div class="brief" role="img" aria-label="Example class briefing card. Tuesday 6:30am Reformer Foundations, taught by Priya covering for Jo. Six beds with each client's spring setup, two first-timers, one private pregnancy note and one back note shared that morning.">
           <div class="brief-head">
             <div>
@@ -256,6 +327,7 @@
           </div>
           <div class="brief-foot"><span class="tick" aria-hidden="true">✓</span> All six members were told Priya is teaching.</div>
         </div>
+        </div></div></div>
         <figcaption class="example">Example briefing card</figcaption>
       </figure>
     </div>
@@ -279,74 +351,87 @@
         <p class="muted">We're building SpringCue with a small group of UK founding studios. Here's what it's for.</p>
       </div>
 
-      <article class="pillar">
-        <div>
-          <h3>Never cancel a class</h3>
-          <p class="lede">Cover requests go out fairly and automatically, so you stop chasing people and nobody gets asked every time.</p>
-          <ul class="points">
-            <li>Your own team first, in rotation, with weekly limits and availability rules like "never before 7am".</li>
-            <li>Qualification tags, so prenatal or advanced classes only go to instructors trained for them.</li>
-            <li>Once cover is confirmed, the timetable updates and booked members are told who's teaching.</li>
-            <li>Apprentice classes for new instructors: labelled, discounted, with training hours logged.</li>
-            <li>Private one-tap feedback after class, so new instructors improve quickly.</li>
-          </ul>
+      <div class="tabs" data-tabs>
+        <div class="tab-list">
+          <div class="tab-item is-active" data-key="cover">
+            <button class="tab-btn" type="button" aria-expanded="true" aria-controls="tab-body-cover panel-cover"><h3>Never cancel a class</h3></button>
+            <div class="tab-body" id="tab-body-cover"><div>
+              <p class="lede">Cover requests go out fairly and automatically, so you stop chasing people and nobody gets asked every time.</p>
+              <ul class="points">
+                <li>Your own team first, in rotation, with weekly limits and availability rules like "never before 7am".</li>
+                <li>Qualification tags, so prenatal or advanced classes only go to instructors trained for them.</li>
+                <li>Once cover is confirmed, the timetable updates and booked members are told who's teaching.</li>
+                <li>Apprentice classes for new instructors: labelled, discounted, with training hours logged.</li>
+              </ul>
+            </div></div>
+            <span class="tab-bar" aria-hidden="true"><span></span></span>
+          </div>
+          <div class="tab-item" data-key="brief">
+            <button class="tab-btn" type="button" aria-expanded="false" aria-controls="tab-body-brief panel-brief"><h3>Know every body before class</h3></button>
+            <div class="tab-body" id="tab-body-brief"><div>
+              <p class="lede">A quiet briefing card reaches the instructor 15 minutes before class, laid out by bed.</p>
+              <ul class="points">
+                <li>First-timers, and clients that instructor hasn't taught before, are highlighted.</li>
+                <li>Clients share injuries or a pregnancy once, privately. Every instructor sees it and nobody announces it.</li>
+                <li>Each client's reformer setup is saved: gear bar, stopper, springs, headrest and props.</li>
+                <li>Pregnancy-aware booking and simple level rules, like eight beginner classes before intermediate.</li>
+              </ul>
+            </div></div>
+            <span class="tab-bar" aria-hidden="true"><span></span></span>
+          </div>
+          <div class="tab-item" data-key="fair">
+            <button class="tab-btn" type="button" aria-expanded="false" aria-controls="tab-body-fair panel-fair"><h3>Fair, simple, British</h3></button>
+            <div class="tab-body" id="tab-body-fair"><div>
+              <p class="lede">The things studio owners told us they're tired of, fixed.</p>
+              <ul class="points">
+                <li>A real person in the UK on WhatsApp or phone, not a chatbot.</li>
+                <li>We move you from your current system for you, and help your members re-enter their cards.</li>
+                <li>Prices in pounds, VAT invoices, and Direct Debit as well as card.</li>
+              </ul>
+            </div></div>
+            <span class="tab-bar" aria-hidden="true"><span></span></span>
+          </div>
         </div>
-        <div class="mock" aria-label="Example cover request">
-          <div class="mock-title">Cover needed: Thu 9:30am Reformer Flow</div>
-          <div class="mock-sub">Jo is off sick. Asking qualified instructors in turn.</div>
-          <ul class="queue">
-            <li><div><div class="who">Lou</div><div class="why">Already covered twice this month</div></div><span class="status skip">Skipped</span></li>
-            <li><div><div class="who">Ben</div><div class="why">Unavailable before 10am</div></div><span class="status skip">Skipped</span></li>
-            <li><div><div class="who">Priya</div><div class="why">Covered by Jo last week</div></div><span class="status yes">Accepted</span></li>
-          </ul>
-          <div class="mock-foot">Timetable updated. 8 booked members told.</div>
-        </div>
-      </article>
 
-      <article class="pillar">
-        <div>
-          <h3>Know every body before class</h3>
-          <p class="lede">A quiet briefing card reaches the instructor 15 minutes before class, laid out by bed.</p>
-          <ul class="points">
-            <li>First-timers, and clients that instructor hasn't taught before, are highlighted.</li>
-            <li>Clients share injuries or a pregnancy once, privately. Every instructor sees it and nobody announces it.</li>
-            <li>Each client's reformer setup is saved: gear bar, stopper, springs, headrest and props.</li>
-            <li>Pregnancy-aware booking and simple level rules, like eight beginner classes before intermediate.</li>
-          </ul>
+        <div class="tab-visual">
+          <div class="panel is-active" id="panel-cover" data-key="cover">
+            <div class="mock" aria-label="Example cover request">
+              <div class="mock-title">Cover needed: Thu 9:30am Reformer Flow</div>
+              <div class="mock-sub">Jo is off sick. Asking qualified instructors in turn.</div>
+              <ul class="queue">
+                <li data-step="skip"><div><div class="who">Lou</div><div class="why">Already covered twice this month</div></div><span class="status skip">Skipped</span></li>
+                <li data-step="skip"><div><div class="who">Ben</div><div class="why">Unavailable before 10am</div></div><span class="status skip">Skipped</span></li>
+                <li data-step="yes"><div><div class="who">Priya</div><div class="why">Covered by Jo last week</div></div><span class="status yes">Accepted</span></li>
+              </ul>
+              <div class="mock-foot">Timetable updated. 8 booked members told.</div>
+            </div>
+          </div>
+          <div class="panel" id="panel-brief" data-key="brief">
+            <div class="mock" aria-label="Example client setup">
+              <div class="mock-title">Sam's reformer setup</div>
+              <div class="mock-sub">Saved after her intro class</div>
+              <dl class="setup">
+                <dt>Height</dt><dd>5'3"</dd>
+                <dt>Gear bar</dt><dd>2</dd>
+                <dt>Stopper</dt><dd>3</dd>
+                <dt>Footwork</dt><dd><i class="spr r grow" aria-hidden="true"></i><i class="spr b grow" aria-hidden="true"></i> 1 red, 1 blue</dd>
+                <dt>Headrest</dt><dd>Down</dd>
+              </dl>
+              <div class="note-private">Private note, visible to instructors only: "Knee surgery 2024. Fine with modifications, prefers not to be singled out."</div>
+            </div>
+          </div>
+          <div class="panel" id="panel-fair" data-key="fair">
+            <div class="mock" aria-label="What you won't get with SpringCue">
+              <ul class="promise">
+                <li><span>One flat monthly price</span><span class="them">A cut of your sales</span></li>
+                <li><span>Monthly, cancel any time</span><span class="them">12-month contracts</span></li>
+                <li><span>Your data, exported free</span><span class="them">Exit fees</span></li>
+                <li><span>Your clients see only you</span><span class="them">Rival studios in your app</span></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="mock" aria-label="Example client setup">
-          <div class="mock-title">Sam's reformer setup</div>
-          <div class="mock-sub">Saved after her intro class</div>
-          <dl class="setup">
-            <dt>Height</dt><dd>5'3"</dd>
-            <dt>Gear bar</dt><dd>2</dd>
-            <dt>Stopper</dt><dd>3</dd>
-            <dt>Footwork</dt><dd><i class="spr r" aria-hidden="true"></i><i class="spr b" aria-hidden="true"></i> 1 red, 1 blue</dd>
-            <dt>Headrest</dt><dd>Down</dd>
-          </dl>
-          <div class="note-private">Private note, visible to instructors only: "Knee surgery 2024. Fine with modifications, prefers not to be singled out."</div>
-        </div>
-      </article>
-
-      <article class="pillar">
-        <div>
-          <h3>Fair, simple, British</h3>
-          <p class="lede">The things studio owners told us they're tired of, fixed.</p>
-          <ul class="points">
-            <li>A real person in the UK on WhatsApp or phone, not a chatbot.</li>
-            <li>We move you from your current system for you, and help your members re-enter their cards.</li>
-            <li>Prices in pounds, VAT invoices, and Direct Debit as well as card.</li>
-          </ul>
-        </div>
-        <div class="mock" aria-label="What you won't get with SpringCue">
-          <ul class="promise">
-            <li><span>One flat monthly price</span><span class="them">A cut of your sales</span></li>
-            <li><span>Monthly, cancel any time</span><span class="them">12-month contracts</span></li>
-            <li><span>Your data, exported free</span><span class="them">Exit fees</span></li>
-            <li><span>Your clients see only you</span><span class="them">Rival studios in your app</span></li>
-          </ul>
-        </div>
-      </article>
+      </div>
     </div>
   </section>
 
@@ -456,6 +541,7 @@
   </section>
 
   <section class="join" id="join" aria-labelledby="join-title">
+    <svg class="join-coil" viewBox="0 0 260 80" aria-hidden="true"><path d="M8 52c16 0 16-34 32-34s16 34 32 34 16-34 32-34 16 34 32 34 16-34 32-34" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="222" cy="18" r="14" fill="#fff"/></svg>
     <div class="wrap">
       <div>
         <h2 id="join-title">Join the waitlist</h2>
@@ -507,6 +593,72 @@
   document.querySelectorAll("[data-plan]").forEach(function (a) {
     a.addEventListener("click", function () { chosenPlan = a.dataset.plan; loadForm(); });
   });
+
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Cover request plays out: each instructor is asked in turn.
+  const queue = document.querySelector(".queue");
+  let coverTimers = [];
+  function playCover() {
+    if (calm || !queue) return;
+    coverTimers.forEach(clearTimeout); coverTimers = [];
+    const rows = [...queue.querySelectorAll("li")];
+    const labels = rows.map(r => r.querySelector(".status").textContent);
+    rows.forEach(r => { r.classList.remove("asking", "done"); r.querySelector(".status").textContent = "Waiting"; });
+    queue.classList.add("playing"); queue.classList.remove("finished");
+    let t = 400;
+    rows.forEach((r, i) => {
+      const st = r.querySelector(".status");
+      coverTimers.push(setTimeout(() => { r.classList.add("asking"); st.textContent = "Asking"; }, t));
+      t += 1100;
+      coverTimers.push(setTimeout(() => { r.classList.remove("asking"); r.classList.add("done"); st.textContent = labels[i]; }, t));
+      t += 250;
+    });
+    coverTimers.push(setTimeout(() => queue.classList.add("finished"), t));
+  }
+
+  // Feature tabs: one open at a time, moving on by themselves until someone clicks.
+  const tabs = document.querySelector("[data-tabs]");
+  if (tabs) {
+    const items = [...tabs.querySelectorAll(".tab-item")];
+    const panels = [...tabs.querySelectorAll(".panel")];
+    function show(key, fromClick) {
+      items.forEach(it => {
+        const on = it.dataset.key === key;
+        it.classList.toggle("is-active", on);
+        it.querySelector(".tab-btn").setAttribute("aria-expanded", on);
+      });
+      panels.forEach(p => p.classList.toggle("is-active", p.dataset.key === key));
+      if (fromClick) tabs.classList.remove("auto");
+      if (key === "cover") playCover();
+      if (key === "brief") panels.find(p => p.dataset.key === "brief").querySelectorAll(".spr.grow").forEach(s => { s.style.animation = "none"; s.offsetWidth; s.style.animation = ""; });
+    }
+    items.forEach(it => it.querySelector(".tab-btn").addEventListener("click", () => show(it.dataset.key, true)));
+    if (!calm) {
+      tabs.classList.add("auto", "paused");
+      tabs.addEventListener("animationend", e => {
+        if (e.animationName !== "fill" || !tabs.classList.contains("auto")) return;
+        const i = items.findIndex(it => it.classList.contains("is-active"));
+        show(items[(i + 1) % items.length].dataset.key, false);
+      });
+      let played = false;
+      new IntersectionObserver(([en]) => {
+        tabs.classList.toggle("paused", !en.isIntersecting);
+        if (en.isIntersecting && !played) { played = true; playCover(); }
+      }, { threshold: 0.35 }).observe(tabs);
+    }
+  }
+
+  // Hero card leans gently towards the pointer.
+  const stage = document.querySelector(".stage"), tilt = document.querySelector(".tilt");
+  if (stage && tilt && !calm && matchMedia("(pointer: fine)").matches) {
+    stage.addEventListener("pointermove", e => {
+      const b = stage.getBoundingClientRect();
+      tilt.style.setProperty("--ry", ((e.clientX - b.left) / b.width - 0.5) * 8 + "deg");
+      tilt.style.setProperty("--rx", -((e.clientY - b.top) / b.height - 0.5) * 6 + "deg");
+    });
+    stage.addEventListener("pointerleave", () => { tilt.style.setProperty("--ry", "0deg"); tilt.style.setProperty("--rx", "0deg"); });
+  }
 
   // Hairline under the nav once the page scrolls.
   const nav = document.querySelector(".nav");
